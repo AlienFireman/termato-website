@@ -15,30 +15,32 @@ document.querySelectorAll('.nav-links a').forEach(a =>
   a.addEventListener('click', () => nav.classList.remove('menu-open'))
 );
 
-// copy install command
-const copyBtn = document.getElementById('copyBtn');
-const installCmd = document.getElementById('installCmd');
-copyBtn.addEventListener('click', async () => {
-  const text = installCmd.textContent.trim();
-  try {
-    await navigator.clipboard.writeText(text);
-  } catch {
-    const r = document.createRange();
-    r.selectNode(installCmd);
-    const sel = window.getSelection();
-    sel.removeAllRanges(); sel.addRange(r);
-    document.execCommand('copy'); sel.removeAllRanges();
-  }
-  copyBtn.textContent = 'Copied!';
-  copyBtn.classList.add('copied');
-  setTimeout(() => { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }, 1600);
+// copy install command — every .copy-btn copies the <code> next to it,
+// then flips the copy icon to a check for a moment.
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  const code = btn.parentElement.querySelector('code');
+  if (!code) return;
+  btn.addEventListener('click', async () => {
+    const text = code.textContent.trim();
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const r = document.createRange();
+      r.selectNode(code);
+      const sel = window.getSelection();
+      sel.removeAllRanges(); sel.addRange(r);
+      document.execCommand('copy'); sel.removeAllRanges();
+    }
+    btn.classList.add('copied');
+    setTimeout(() => btn.classList.remove('copied'), 1600);
+  });
 });
 
 // reveal on scroll
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
-document.querySelectorAll('.usp, .feat, .sec, .stat, .section-head, .perf-copy, .start-card')
+document.querySelectorAll('.usp, .feat, .sec, .section-head, .perf-copy, .reassure, .start-card')
   .forEach((el, i) => { el.classList.add('reveal'); el.style.transitionDelay = (i % 3) * 60 + 'ms'; io.observe(el); });
 
 // feature card spotlight
@@ -50,72 +52,101 @@ document.querySelectorAll('.feat').forEach(card => {
   });
 });
 
-/* ===== animated hero terminal ===== */
+/* ===== animated hero — a mock of a Termato terminal session ===== */
 const termBody = document.getElementById('termBody');
+const appDev = document.getElementById('appDev');
 
-// each step: typed prompt line, then instant output lines
-const script = [
-  { type: 'cmd', prompt: '~/orbit ❯ ', text: 'git status' },
-  { type: 'out', cls: 'dim', text: 'On branch feature/auth · 3 files changed' },
-  { type: 'gap' },
-  { type: 'cmd', prompt: '~/orbit ❯ ', text: 'ask termato to add password reset', ai: true },
-  { type: 'out', cls: 'ai', text: '✦ Reading auth.js, mailer.js, routes/…' },
-  { type: 'out', cls: 'ai', text: '✦ Adding /reset endpoint + scrypt token flow' },
-  { type: 'out', cls: 'ai', text: '✦ Wiring email template & tests' },
-  { type: 'out', cls: 'ok',  text: '✓ Done — 4 files edited, 12 tests passing' },
-  { type: 'gap' },
-  { type: 'cmd', prompt: '~/orbit ❯ ', text: 'npm run dev' },
-  { type: 'out', cls: 'ok',  text: '▸ preview live · synced to phone + tablet' },
+// the story: a session on desktop → hand off to phone mid-task →
+// queue a message → the agent finishes and opens the preview in-workspace.
+const prompt = '~/orbit ❯ ';
+const steps = [
+  { kind: 'device', label: '⌘ Desktop' },
+  { kind: 'cmd', text: 'npm run dev' },
+  { kind: 'out', cls: 'ok',  text: '▸ dev server ready · localhost:5173' },
+  { kind: 'gap' },
+  { kind: 'cmd', text: 'claude "add a password reset flow"', ai: true },
+  { kind: 'out', cls: 'ai',  text: '✦ editing auth.js · mailer.js · routes/' },
+  { kind: 'out', cls: 'ok',  text: '✓ done — 4 files changed, tests passing' },
+  { kind: 'note',  text: '⇄ Picked up on iPhone — same session, mid-task' },
+  { kind: 'device', label: '􀟜 iPhone' },
+  { kind: 'cmd', text: 'claude "now add rate limiting"', ai: true, phone: true },
+  { kind: 'queue', text: '⧗ Queued on your machine — fires when this turn ends · phone can close' },
+  { kind: 'out', cls: 'ai',  text: '✦ adding rate limiter + tests' },
+  { kind: 'out', cls: 'ok',  text: '✓ rate limiting added · all green' },
+  { kind: 'preview', title: 'localhost:5173 · opened in this workspace' },
 ];
 
 let si = 0, ci = 0;
-const cursor = '<span class="cursor"></span>';
+const cursor = '<span class="b-cursor"></span>';
 
-function appendLine(html) {
+function addLine(html, cls) {
   const div = document.createElement('div');
-  div.className = 'ln';
+  div.className = 'tl' + (cls ? ' ' + cls : '');
   div.innerHTML = html;
   termBody.appendChild(div);
+  termBody.scrollTop = termBody.scrollHeight;
   return div;
 }
 
 function run() {
-  if (si >= script.length) {
-    // hold, then restart
-    setTimeout(() => { termBody.innerHTML = ''; si = 0; ci = 0; run(); }, 4200);
+  if (si >= steps.length) {
+    setTimeout(() => { termBody.innerHTML = ''; si = 0; ci = 0; appDev.textContent = '⌘ Desktop'; run(); }, 4600);
     return;
   }
-  const step = script[si];
+  const step = steps[si];
 
-  if (step.type === 'gap') {
-    appendLine('&nbsp;');
+  if (step.kind === 'device') {
+    appDev.textContent = step.label;
+    appDev.classList.remove('flash'); void appDev.offsetWidth; appDev.classList.add('flash');
     si++; ci = 0;
-    setTimeout(run, 220);
+    setTimeout(run, 280);
     return;
   }
 
-  if (step.type === 'out') {
-    appendLine(`<span class="${step.cls || ''}">${step.text}</span>`);
+  if (step.kind === 'gap') {
+    addLine('&nbsp;');
     si++; ci = 0;
-    setTimeout(run, 360);
+    setTimeout(run, 200);
     return;
   }
 
-  // cmd: type char by char
+  if (step.kind === 'out') {
+    addLine(`<span class="${step.cls || ''}">${step.text}</span>`);
+    si++; ci = 0;
+    setTimeout(run, 520);
+    return;
+  }
+
+  if (step.kind === 'note' || step.kind === 'queue') {
+    addLine(step.text, step.kind === 'queue' ? 'sys queue' : 'sys note');
+    si++; ci = 0;
+    setTimeout(run, step.kind === 'queue' ? 1200 : 1000);
+    return;
+  }
+
+  if (step.kind === 'preview') {
+    addLine(`<div class="b-prev"><div class="b-prev-bar"><span></span><span></span><span></span><em>${step.title}</em></div><div class="b-prev-body"><div class="b-prev-line w1"></div><div class="b-prev-line w2"></div><div class="b-prev-btn"></div></div></div>`, 'prev');
+    si++; ci = 0;
+    setTimeout(run, 1500);
+    return;
+  }
+
+  // cmd — typed char by char after the prompt
   if (ci === 0) {
-    const line = appendLine(`<span class="prompt">${step.prompt}</span><span class="typed ${step.ai ? 'ai' : 'user'}"></span>${cursor}`);
-    step._el = line.querySelector('.typed');
+    const line = addLine(`<span class="prompt">${prompt}</span><span class="typed ${step.ai ? 'ai' : 'user'}"></span>${cursor}`,
+      step.phone ? 'from-phone' : '');
+    step._typed = line.querySelector('.typed');
+    step._line = line;
   }
   if (ci < step.text.length) {
-    step._el.textContent += step.text[ci];
+    step._typed.textContent += step.text[ci];
     ci++;
-    setTimeout(run, 38 + Math.random() * 45);
+    setTimeout(run, 38 + Math.random() * 48);
   } else {
-    // remove cursor from this finished line
-    const c = step._el.parentElement.querySelector('.cursor');
+    const c = step._line.querySelector('.b-cursor');
     if (c) c.remove();
     si++; ci = 0;
-    setTimeout(run, 480);
+    setTimeout(run, 560);
   }
 }
 run();
