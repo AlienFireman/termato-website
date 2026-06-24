@@ -1,0 +1,7 @@
+{
+  "type": "static",
+  "devCommand": "python3 -m http.server {PORT}",
+  "prodCommand": "python3 -m http.server {PORT}",
+  "prodStartCommand": "python3 -m http.server {PORT}",
+  "skills": []
+}

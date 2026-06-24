@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Termato — Your terminals. Every device. Anywhere.</title>
-  <meta name="description" content="Termato is the modern way to run and manage terminal sessions — on your laptop, your phone, or both at once. Spin up sessions on the fly, resume any of them in one tap with full context, and continue from any device. Pair it with Claude Code, Codex or any CLI. Ultra-secure and private — your data never leaves your machine." />
+  <meta name="description" content="Termato is the modern way to run and manage terminal sessions and local AI chats — on your laptop, your phone, or both at once. Lightweight and up and running in seconds: spin up sessions on the fly, resume any in one tap, and pick up from any device. It's your whole computer in your pocket. Ultra-secure and private — your data never leaves your machine." />
   <link rel="icon" type="image/svg+xml" href="logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,7 +26,6 @@
         <a href="#start">Get started</a>
       </nav>
       <div class="nav-cta">
-        <span class="free-pill">Free</span>
         <a class="btn btn-primary btn-sm" href="#start">Install Termato</a>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -42,20 +41,22 @@
       <div class="hero-copy">
         <div class="badge">
           <span class="badge-dot"></span>
-          Free · your terminals, on every device
+          Lightweight · up and running in seconds
         </div>
         <h1>
           Your terminals.<br />
-          <span class="grad">Every device. Anywhere.</span>
+          <span class="grad">Anywhere.</span>
         </h1>
         <p class="lede">
-          Termato is the modern way to run and manage terminal sessions — on your
-          laptop, your phone, or both at once. Spin them up on the fly, resume any
-          of them in one tap, and pick up exactly where you left off from whatever
-          device is in your hand. Pair it with Claude Code for <em>AI coding in
-          your pocket</em> — or run any CLI you like.
+          Termato is the modern way to run and manage terminal sessions and local
+          AI chats — on your laptop, your phone, or both at once. It's lightweight:
+          spin up sessions on the fly, resume any in one tap, and pick up from
+          whatever device is in your hand. It's
+          <em>your whole computer in your pocket</em> — talk to it, build on it,
+          run anything, from anywhere.
         </p>
 
+        <p class="install-cap">⚡ One line to install — you're up and running in <strong>seconds</strong>.</p>
         <div class="install-box hero-install">
           <code id="installCmdHero">git clone https://github.com/AlienFireman/termato-app.git ~/.termato &amp;&amp; bash ~/.termato/install.sh</code>
           <button class="copy-btn" aria-label="Copy install command">
@@ -115,8 +116,9 @@
           <div class="usp-icon">📱</div>
           <h3>A terminal that goes where you go</h3>
           <p>The session you started at your desk is the same one waiting in your
-             pocket — no setup, no syncing, no thinking about it. Spin up terminals,
-             run your tools, and carry on from any device in real time. Pair it with
+             pocket — no setup, no syncing, no thinking about it. Spin up advanced
+             block-based terminals that feel just like the one you already use, run
+             your tools, and carry on from any device in real time. Pair it with
              Claude Code and you've got the full power of AI coding in your pocket —
              but the terminal stands on its own and runs whatever you like.</p>
         </article>
@@ -170,19 +172,21 @@
       <div class="section-head">
         <span class="eyebrow">Features</span>
         <h2>One workspace that travels with you.</h2>
-        <p>A blazing cross-device terminal, an optional friendly chat, live previews
-           kept in context, and a UI that's quick, fluid and identical on every
-           screen.</p>
+        <p>An advanced block-based terminal that still feels completely familiar, an
+           optional friendly chat, live previews kept in context, and a UI that's
+           quick, fluid and identical on every screen.</p>
       </div>
 
       <div class="feat-grid">
         <article class="feat">
           <div class="feat-ic">▦</div>
-          <h3>The smartest terminal on any screen</h3>
-          <p>The fastest, most capable, most user-friendly terminal across every
-             device — and genuinely a pleasure to use on a phone. No mangled
-             wrapping, no reflow chaos: a thoroughly modern rendering engine keeps
-             every line crisp and readable at any width, on any screen.</p>
+          <h3>The terminal you know, only smarter</h3>
+          <p>It looks and behaves exactly like the terminal you use every day —
+             there's nothing new to learn. Under the surface it's an advanced,
+             block-based terminal that keeps every command and its output crisp and
+             readable at any width, so a single session flows seamlessly between your
+             laptop and your phone. No mangled wrapping, no reflow chaos — just the
+             terminal you already know, working far better across every device.</p>
         </article>
 
         <article class="feat">
@@ -300,8 +304,8 @@
 
         <article class="sec">
           <h3><span class="sec-no">06</span> Runs only on hardware you control</h3>
-          <p>No cloud, no telemetry, no analytics. Termato runs where you put it and
-             answers to no one else.</p>
+          <p>No cloud, no telemetry, no analytics. Put it on a server, a desktop or
+             a laptop — Termato runs where you choose and answers to no one else.</p>
         </article>
       </div>
     </div>
@@ -309,39 +313,48 @@
 
   <!-- ===== EXPERIENCE ===== -->
   <section class="performance" id="experience">
-    <div class="container perf-inner">
-      <div class="perf-copy">
+    <div class="container">
+      <div class="section-head">
         <span class="eyebrow">Experience</span>
         <h2>Slips into the way you already work.</h2>
         <p>Termato slips in alongside your existing setup — there's nothing to
            migrate and nothing to undo. When you'd rather work the old way,
            everything is exactly where you left it.</p>
-        <ul class="perf-list">
-          <li><strong>Changes nothing about your setup.</strong> Use Claude Code
-              inside Termato or outside it; Termato never touches, reconfigures or
-              interferes with your configuration.</li>
-          <li><strong>Built to feel good.</strong> A quick, fluid, polished UI with
-              instant pane switching that's a genuine pleasure to use on every
-              screen.</li>
-          <li><strong>Context that carries.</strong> Long-running sessions keep
-              their history, with compaction handled by Claude Code itself, so you
-              simply keep going.</li>
-          <li><strong>The same app on every screen.</strong> Phone, tablet, laptop
-              — one consistent experience, kept in sync in real time.</li>
-        </ul>
       </div>
-      <aside class="reassure">
-        <div class="reassure-badge">No interference</div>
-        <h3>It won't touch your setup. At all.</h3>
-        <p>A common worry: “will this mess with my setup?” It won't. Termato sits
-           cleanly alongside the tools you already run. Open your normal terminal
-           whenever you like and everything is exactly where you left it.</p>
-        <ul class="reassure-list">
-          <li>Use Claude Code inside or outside Termato, interchangeably</li>
-          <li>Leaves your config and projects untouched</li>
-          <li>Nothing to migrate, nothing to undo</li>
-        </ul>
-      </aside>
+      <ul class="exp-grid">
+        <li>
+          <span class="exp-ic">✓</span>
+          <div class="exp-t">
+            <strong>Changes nothing about your setup</strong>
+            Use Claude Code inside Termato or outside it; Termato never touches,
+            reconfigures or interferes with your configuration.
+          </div>
+        </li>
+        <li>
+          <span class="exp-ic">✦</span>
+          <div class="exp-t">
+            <strong>Built to feel good</strong>
+            A quick, fluid, polished UI with instant pane switching that's a genuine
+            pleasure to use on every screen.
+          </div>
+        </li>
+        <li>
+          <span class="exp-ic">⟳</span>
+          <div class="exp-t">
+            <strong>Context that carries</strong>
+            Long-running sessions keep their history, with compaction handled by
+            Claude Code itself, so you simply keep going.
+          </div>
+        </li>
+        <li>
+          <span class="exp-ic">⧉</span>
+          <div class="exp-t">
+            <strong>The same app on every screen</strong>
+            Phone, tablet, laptop — one consistent experience, kept in sync in real
+            time.
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -352,8 +365,9 @@
         <div class="start-glow" aria-hidden="true"></div>
         <span class="eyebrow center">Get started</span>
         <h2>Up and running in one line.</h2>
-        <p>One line and Termato sets up everything for you — its own runtime, free
-           ports, and secure remote access. It asks just two quick things: a
+        <p>Run it on a server, a desktop or a laptop — one line and Termato sets up
+           everything for you in seconds: its own runtime, open ports, and secure
+           remote access. It asks just two quick things: a
            <strong>username</strong> (the personal subdomain you'll open Termato at)
            and a <strong>password</strong> (your private login). Then you're in.</p>
 
@@ -377,7 +391,7 @@
            Code (Codex and other AI subscriptions coming soon).</p>
 
         <ul class="start-points">
-          <li>✓ Free</li>
+          <li>✓ Sets up in seconds</li>
           <li>✓ Runs on your machine</li>
           <li>✓ Works on desktop &amp; mobile</li>
           <li>✓ Self-updating</li>
@@ -391,7 +405,7 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <img src="logo.svg" alt="Termato" class="footer-logo" />
-        <p>The modern way to run your terminal — on every device. Free &amp; private.</p>
+        <p>The modern way to run your terminal — on every device. Private by design.</p>
       </div>
       <div class="footer-cols">
         <div class="footer-col">
@@ -418,7 +432,7 @@
     </div>
     <div class="footer-base">
       <div class="container footer-base-inner">
-        <span>© <span id="year"></span> Termato. Free &amp; open.</span>
+        <span>© <span id="year"></span> Termato.</span>
         <span class="footer-made">Made for people who live in the terminal — and on the move.</span>
       </div>
     </div>

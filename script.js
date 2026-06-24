@@ -40,7 +40,7 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
-document.querySelectorAll('.usp, .feat, .sec, .section-head, .perf-copy, .reassure, .start-card')
+document.querySelectorAll('.usp, .feat, .sec, .section-head, .exp-grid li, .start-card')
   .forEach((el, i) => { el.classList.add('reveal'); el.style.transitionDelay = (i % 3) * 60 + 'ms'; io.observe(el); });
 
 // feature card spotlight
